@@ -1,0 +1,101 @@
+[LL_WEBREPORT_STARTSCRIPT NAME:findNums /]
+// This is the function that does the work.
+// Returns an array: incoming string, parsed out, first num, last num, sum
+function List anyName(String args)
+ String target = Str.Strip(args, "'") // removing leading/trailing quotes.
+ String s = ''
+ String search = ''
+ integer mc=0 // maximum count.
+ List searches = { "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" }
+ integer leftN, leftNspot = 1000
+ integer rightNspot = -1, x, rightN, rightNtemp=-1
+ List result1, result2
+ // While there are much more elegant approaches, I'm just going to brute-force this.
+ for (x=1; x<=Length(searches); x+=1 )
+  rightNtemp=0
+  s=target  // reset the string
+  mc=0
+  result1 = Pattern.Find( s, Pattern.CompileFind( Str.ValueToString(x) ) )
+  if (IsDefined( result1 ))
+   if result1[1] < leftNspot
+    leftNspot =result1[1]
+    leftN = x
+   end
+  end
+  while ( IsDefined( result1 ) && mc < 100)
+   rightNtemp+=result1[1]
+   s = s[ result1[1]+1 : ] // It's only matching one character, so need to be higher than that!
+   result1 = Pattern.Find( s, Pattern.CompileFind( Str.ValueToString(x) ) )
+   mc += 1
+  end
+  if ( rightNtemp > rightNspot )
+   rightNspot=rightNtemp
+   rightN=x
+  end
+  rightNtemp=0
+  s=target  // reset the string
+  result2 = Pattern.Find( s, Pattern.CompileFind( searches[x] ) )
+  if (IsDefined( result2))
+   if result2[1] < leftNspot
+    leftNspot =result2[1]
+    leftN = x
+   end
+  end
+  while ( IsDefined( result2 ) && mc < 100)
+   rightNtemp+=result2[1]
+   s = s[ result2[1]+1 : ] // It's only matching one character, so need to be higher than that!
+   result2 = Pattern.Find( s, Pattern.CompileFind( searches[x] ) )
+   mc += 1
+  end
+  if ( rightNtemp > rightNspot )
+   rightNspot=rightNtemp
+   rightN=x
+  end
+ end
+ // Returning a two-entry list. First entry is an "array-ified" list of values for display purposes. Second entry is the sum of the numbers for the entry.
+ List nums = {Str.Format("[%1, %2, %3, %4, %5, %6]",args, leftNspot, leftN, rightNspot, rightN, Str.StringToInteger(Str.ValueToString(leftN)+Str.ValueToString(rightN))), Str.StringToInteger(Str.ValueToString(leftN)+Str.ValueToString(rightN))}
+ return nums
+end
+[LL_WEBREPORT_ENDSCRIPT /]
+
+[LL_WEBREPORT_STARTSCRIPT NAME:loadData /]
+// The various arrays are used only for debugging and display purposes.
+function String loadData(Dynamic context)
+ integer count = 0
+ integer sum = 0
+ string retArray = ""
+ List funcRet = {}
+ // OK, let's load the data and do the work.
+ for myItem in context.data
+  funcRet = .findNums(Str.ValueToString(myItem.Column1))
+  retArray = retArray+","+funcRet[1]
+  count+=1
+  sum += funcRet[2]
+ end
+ // Trim the leading comma and package it up.
+ retArray = "["+retArray[2:]+"]"
+ // Add the sum to the return data. This is what we're looking for.
+ retArray = "[["+Str.ValueToString(count)+","+Str.ValueToString(sum)+"],"+retArray+"]"
+ return retArray
+end
+[LL_WEBREPORT_ENDSCRIPT /]
+
+<script>
+$( document ).ready(function() {
+ [/* One call. Loads the data and makes the call. We cannot assign script results to a variable for manipulation in WebReports.
+ Regardless in the spirit of the challenge, everything needs to be done in the OScript functions. */]
+ const myReturn = [LL_WEBREPORT_CALL NAME:loadData /];
+ [/* And... we're done. Just parse out the data and display. */]
+ $('#sumTable tr:last').after("<TR><TD>"+myReturn[0][0]+"</TD><TD>"+myReturn[0][1]+"</TD></TR>");
+ for (eachLine of myReturn[1]) {
+   $('#dataTable tr:last').after("<TR><TD>"+eachLine[0]+"</TD><TD>"+eachLine[1]+"</TD><TD>"+eachLine[2]+"</TD><TD>"+eachLine[3]+"</TD><TD>"+eachLine[4]+"</TD><TD>"+eachLine[5]+"</TD></TR>");
+ }
+});
+</script>
+
+[LL_WEBREPORT_STARTROW /]
+[LL_WEBREPORT_ENDROW /]
+<TABLE id="sumTable" BORDER=1 ><TR><TH>NumEntries</TH><TH>SUM</TH></TR>
+</TABLE>
+<TABLE id="dataTable" BORDER=1 ><TR><TH>Input</TH><TH>LeftSpot</TH><TH>Left</TH><TH>RightSpot</TH><TH>Right</TH><TH>Combined</TH></TR>
+</TABLE>
