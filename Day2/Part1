@@ -1,0 +1,70 @@
+[LL_WEBREPORT_STARTSCRIPT NAME:parseInput /]
+// This is the function that does the work.
+// Returns an array: game#, rawdraws, blue, red, green
+// NOTE: 12 red cubes, 13 green cubes, and 14 blue cubes
+
+function List anyName(String gamenum, String draws)
+
+ gamenum = Str.Strip(gamenum, "'") // removing leading/trailing quotes.
+ draws = Str.Strip(draws, "'") // removing leading/trailing quotes.
+
+ integer mred=12, mgreen=13, mblue=14
+ String gnum = Pattern.Change( gamenum, Pattern.CompileFind( "Game " ), Pattern.CompileChange( '#1' ) )
+ if (IsUndefined(gnum)); gnum='0'; end
+ List games = Str.Elements( draws, ";")
+ String eachRound = "", numBlue="", numRed="", numGreen=""
+ for eachRound in games
+  numBlue = Pattern.Change( eachRound, Pattern.CompileFind( "?*[!0-9]+<[0-9]+> *blue?*" ), Pattern.CompileChange( '#1' ) )
+  numRed = Pattern.Change( eachRound, Pattern.CompileFind( "?*[!0-9]+<[0-9]+> *red?*" ), Pattern.CompileChange( '#1' ) )
+  numGreen = Pattern.Change( eachRound, Pattern.CompileFind( "?*[!0-9]+<[0-9]+> *green?*" ), Pattern.CompileChange( '#1' ) )
+  if (IsUndefined(numBlue)); numBlue='0'; end
+  if (IsUndefined(numRed)); numRed='0'; end
+  if (IsUndefined(numGreen)); numGreen='0'; end
+  if ((Str.StringToInteger(numBlue)>mblue)||(Str.StringToInteger(numRed)>mred)||(Str.StringToInteger(numGreen)>mgreen)); gnum="0"; break ; end
+ end
+ List nums = { Str.StringToInteger(gnum), Str.Format("[%1, %2, %3, %4, %5, '%6']",gnum, Str.ValueToString(draws), Str.ValueToString(numBlue), Str.ValueToString(numRed), Str.ValueToString(numGreen), gnum)}
+ return nums
+end
+[LL_WEBREPORT_ENDSCRIPT /]
+
+[LL_WEBREPORT_STARTSCRIPT NAME:loadData /]
+// The various arrays are used only for debugging and display purposes.
+function String loadData(Dynamic context)
+ integer count = 0
+ integer sum = 0
+ string retArray=""
+ List funcRet = {}
+ // OK, let's load the data and do the work.
+ for myItem in context.data
+  funcRet = .parseInput(Str.ValueToString(myItem.Column1), Str.ValueToString(myItem.Column2))
+  retArray = retArray+","+funcRet[2]
+  count+=1
+  sum += funcRet[1]
+ end
+ // Trim the leading comma and package it up.
+ retArray = "["+retArray[2:]+"]"
+ // Add the sum to the return data. This is what we're looking for.
+ retArray = "[["+Str.ValueToString(count)+","+Str.ValueToString(sum)+"],"+retArray+"]"
+ return retArray
+end
+[LL_WEBREPORT_ENDSCRIPT /]
+
+<script>
+$( document ).ready(function() {
+ [/* One call. Loads the data and makes the call. We cannot assign script results to a variable for manipulation in WebReports.
+ Regardless in the spirit of the challenge, everything needs to be done in the OScript functions. */]
+ const myReturn = [LL_WEBREPORT_CALL NAME:loadData /];
+ [/* And... we're done. Just parse out the data and display. */]
+ $('#sumTable tr:last').after("<TR><TD>"+myReturn[0][0]+"</TD><TD>"+myReturn[0][1]+"</TD></TR>");
+ for (eachLine of myReturn[1]) {
+   $('#dataTable tr:last').after("<TR><TD>"+eachLine[0]+"</TD><TD>"+eachLine[1]+"</TD><TD>"+eachLine[2]+","+eachLine[3]+","+eachLine[4]+"</TD><TD>"+eachLine[5]+"</TD></TR>");
+ }
+});
+</script>
+
+[LL_WEBREPORT_STARTROW /]
+[LL_WEBREPORT_ENDROW /]
+<TABLE id="sumTable" BORDER=1 ><TR><TH>NumEntries</TH><TH>SUM</TH></TR>
+</TABLE>
+<TABLE id="dataTable" BORDER=1 ><TR><TH>Game#</TH><TH>Raw Draws</TH><TH>Games (Blue, Red, Green)</TH><TH>Status</TH></TR>
+</TABLE>
