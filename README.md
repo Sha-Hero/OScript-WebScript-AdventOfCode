@@ -1,8 +1,8 @@
 # WebScript-AdventOfCode-2023
-My Advent of Code Solutions in WebScript for 2023
+My Advent of Code Solutions in OScript/WebScript for 2023
 
 Note that these make the following assumptions:
-- Each has been implemented as a WebReport in GCdocs
+- Each has been implemented as oscript functions in webscript in a WebReport in GCdocs
 - Each has the input file as the WebReport source
 - "Vanilla" permissions. That is, restricted to the default functions available in WebScripts
 
