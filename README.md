@@ -9,8 +9,8 @@ Note that these make the following assumptions:
 Restrictions/Quirks
 - WebReports don't "run" linearly per-se. They interpret then display.
 - "Error with [LL_WEBREPORT_STARTSCRIPT /]. The use of .() is not permitted within an Oscript block in a reportview.. "
--   This means limited use of Assoc.
--   However, the workaround is to use a stringified subtag: Str.ValueToString(._subtag(Str.ValueToString(myAssoc),'ASSOC:'+ myKey))
+  - This means limited use of Assoc.
+  - However, the workaround is to use a stringified subtag: Str.ValueToString(._subtag(Str.ValueToString(myAssoc),'ASSOC:'+ myKey))
 - All coding is done in OScript. There is some jQuery and HTML but that's only for displaying results.
 - WebScript - you can't assign return values to a variable. Return values are only "displayable"
 -   Remember - WebReports are primarily meant for prettifying output.
