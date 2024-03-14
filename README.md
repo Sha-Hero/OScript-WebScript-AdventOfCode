@@ -16,4 +16,12 @@ Restrictions/Quirks
 - WebScript - you can't assign return values to a variable. Return values are only "displayable"
 -   Remember - WebReports are primarily meant for prettifying output.
 
+Input
+- Data Source Type: Content Server File
+- File Type: Separated Values
+- Content Type: No cells are quoted
+- Column Separator: typically "," but sometimes ":"
+- Row Separator: \n
+- Column Headings Included: Unchecked
+
 My approach is to solve the problems - not necessarily to be elegant or efficient. Just see if I can solve them given the tools available.
