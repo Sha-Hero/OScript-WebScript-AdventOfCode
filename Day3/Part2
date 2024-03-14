@@ -56,7 +56,7 @@ function String anyName(Dynamic context)
      ts = Str.Format('%1-%2', results[rnum][1]-1, patter[1]+l)
      if Assoc.IsKey(aGears, ts)
       // There's already a key..
-      totals = ._subtag(Str.ValueToString(aGears),'ASSOC:'+ Str.ValueToString(ts)) //*results[rnum][2][rnum2][3]
+      totals = ._subtag(Str.ValueToString(aGears),'ASSOC:'+ Str.ValueToString(ts)) // ASSOC Key trick
       bGears = Assoc.Merge(Assoc.CreateFromPairs( ts, Str.ValueToString(Str.StringToInteger(totals)*results[rnum][2][rnum2][3]) ), bGears) // Multiply other
      else
       aGears = Assoc.Merge(Assoc.CreateFromPairs( ts, Str.ValueToString(results[rnum][2][rnum2][3]) ), aGears)
