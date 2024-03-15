@@ -1,0 +1,61 @@
+[LL_WEBREPORT_STARTSCRIPT NAME:findNums /]
+// This is the function that does the work.
+// Returns an array: incoming string, parsed out, first num, last num, sum
+function List anyName(String args)
+ String target = args
+ String search = "[!0-9]"
+ String change = '#1'
+ String result = Pattern.Change( target, Pattern.CompileFind( search ), Pattern.CompileChange( change ) )
+  if IsUndefined(result)
+   // This can happen when the input is strictly numbers.
+   result = args
+ end
+ Integer leftN = Str.StringToValue(Str.ValueToString(result)[2])
+ Integer rightN = Str.StringToValue(Str.ValueToString(result)[-2])
+ // Returning a two-entry list. First entry is an "array-ified" list of values for display purposes. Second entry is the sum of the numbers for the entry.
+ List nums = {Str.Format("[%1, %2, %3, %4, %5]",args, result, leftN, rightN, Str.StringToInteger(Str.ValueToString(leftN)+Str.ValueToString(rightN))), Str.StringToInteger(Str.ValueToString(leftN)+Str.ValueToString(rightN))}
+ return nums
+end
+[LL_WEBREPORT_ENDSCRIPT /]
+
+[LL_WEBREPORT_STARTSCRIPT NAME:loadData /]
+// The various arrays are used only for debugging and display purposes.
+function String loadData(Dynamic context)
+ integer count = 0
+ integer sum = 0
+ string retArray = ""
+ List funcRet = {}
+ // OK, let's load the data and do the work.
+ for myItem in context.data
+  funcRet = .findNums(Str.ValueToString(myItem.Column1))
+  retArray = retArray+","+funcRet[1]
+  count+=1
+  sum += funcRet[2]
+ end
+ // Trim the leading comma and package it up.
+ retArray = "["+retArray[2:]+"]"
+ // Add the sum to the return data. This is what we're looking for.
+ retArray = "[["+Str.ValueToString(count)+","+Str.ValueToString(sum)+"],"+retArray+"]"
+ return retArray
+end
+[LL_WEBREPORT_ENDSCRIPT /]
+
+<script>
+$( document ).ready(function() {
+ [/* One call. Loads the data and makes the call. We cannot assign script results to a variable for manipulation in WebReports.
+ Regardless in the spirit of the challenge, everything needs to be done in the OScript functions. */]
+ const myReturn = [LL_WEBREPORT_CALL NAME:loadData /];
+ [/* And... we're done. Just parse out the data and display. */]
+ $('#sumTable tr:last').after("<TR><TD>"+myReturn[0][0]+"</TD><TD>"+myReturn[0][1]+"</TD></TR>");
+ for (eachLine of myReturn[1]) {
+   $('#dataTable tr:last').after("<TR><TD>"+eachLine[0]+"</TD><TD>"+eachLine[1]+"</TD><TD>"+eachLine[2]+"</TD><TD>"+eachLine[3]+"</TD><TD>"+eachLine[4]+"</TD></TR>");
+ }
+});
+</script>
+
+[LL_WEBREPORT_STARTROW /]
+[LL_WEBREPORT_ENDROW /]
+<TABLE id="sumTable" BORDER=1 ><TR><TH>NumEntries</TH><TH>SUM</TH></TR>
+</TABLE>
+<TABLE id="dataTable" BORDER=1 ><TR><TH>Input</TH><TH>Parsed</TH><TH>Left</TH><TH>Right</TH><TH>Combined</TH></TR>
+</TABLE>
