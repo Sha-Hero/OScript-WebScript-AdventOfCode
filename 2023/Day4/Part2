@@ -39,7 +39,7 @@ function String loadData(Dynamic context)
   count += 1
  end
  List pointval = {}
- for (count=Length(funcRet)+1;count-=1;count>0)
+ for (count=Length(funcRet);count>0;count-=1)
   // count is the card number. funcRet[count][3] is the number of later cards.
   pointval[count]=1 //  
   points=1
