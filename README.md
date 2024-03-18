@@ -16,6 +16,9 @@ Restrictions/Quirks
     - The workaround for retrieval is to use a stringified input (the "myAssoc" here): String output = ._subtag(Str.ValueToString(myAssoc),'ASSOC:'+ myKey)
   - Of course, there is a Content Server bug that can only retrieve STRINGS from Assocs, so we must store the value as a stringified value (i.e. '{ 1, 2, 3}')
 - All coding is done in OScript. There may be some jQuery and HTML but that's only for displaying results.
+- There is no ability to multithread.
+- Resticted to the following packages: Assoc, Bytes, Date, List, Math, Pattern, RecArray, Str, String, Boolean, Undefined, Void, Integer, Real, Record
+  - Note that subitems are not allowed. For example, we cannot use PatFind or PatChange. Need to overload Pattern all the time.
 
 Input
 - Data Source Type: Content Server File
