@@ -1,0 +1,25 @@
+[LL_WEBREPORT_STARTSCRIPT NAME:parseInput /]
+// This is the function that does the work.
+function String anyName(String haha)
+ return haha
+end
+[LL_WEBREPORT_ENDSCRIPT /]
+
+[LL_WEBREPORT_STARTSCRIPT NAME:loadData /]
+function String loadData(Dynamic context)
+ // This worked, but alternate would be find from edges in.
+ integer time = 71530
+ integer distance = 940200
+ time = 49979494
+ distance = 263153213781851
+ integer count=0, scount=0
+ integer tdist = 0
+ for (count=0;count<=time;count+=1)
+  tdist=(time-count)*count
+  if tdist > distance; scount+=1; end;
+ end
+ return Str.String(scount)
+end
+[LL_WEBREPORT_ENDSCRIPT /]
+
+Output: [LL_WEBREPORT_CALL NAME:loadData /]
