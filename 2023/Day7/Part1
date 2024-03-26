@@ -1,0 +1,71 @@
+[LL_WEBREPORT_STARTSCRIPT NAME:loadData /]
+// The various arrays are used only for debugging and display purposes.
+// The workaround for adding a key/value is create a new assoc, and then Assoc.Merge() the two.
+// The workaround for retrieval is to use a stringified input (the "myAssoc" here): String output = ._subtag(Str.ValueToString(myAssoc),'ASSOC:'+ myKey)
+// Assoc Values need to be stringified too.
+// First use of switch as well.
+function String loadData(Dynamic context)
+ Assoc MyData = Assoc.CreateAssoc()
+ List handList= {}
+ String hand
+ Integer curVal, hrank
+ List numList = {0, 0, 0, 0, 0}
+ List rankList = {{},{},{},{},{},{},{}}
+ // OK, let's load the data and do the work.
+ for myItem in context.data
+  numList = {0, 0, 0, 0, 0}
+  MyData = Assoc.CreateAssoc()
+  hand = Str.String(myItem.Column1)
+  MyData.value = Str.String(myItem.Column2)
+  for (count=1;count <=5;count+=1)
+   switch hand[count]
+    case 'A'; hand[count]='Z'; end
+    case 'K'; hand[count]='Y'; end
+    case 'Q'; hand[count]='X'; end
+    case 'J'; hand[count]='W'; end
+    case 'T'; hand[count]='V'; end
+   end
+   if Assoc.IsKey( MyData, 'z'+Str.String(hand[count]))
+    curVal = Str.StringToInteger(._subtag(Str.ValueToString(MyData),'ASSOC:z'+ Str.String(hand[count])))
+    numList[curVal] -= 1
+    numList[curVal+1] += 1
+    MyData = Assoc.Merge( MyData, Assoc.CreateFromPairs( 'z'+Str.String(hand[count]), Str.String(curVal+1)))
+   else
+    numList[1] += 1
+    MyData = Assoc.Merge( MyData, Assoc.CreateFromPairs( 'z'+Str.String(hand[count]), '1' ))
+   end
+  end
+  MyData.hand = hand
+  if numList[5] == 1 // five of a kind
+   rankList[1] = List.Sort({ @rankList[1], { MyData.hand, MyData.value } })
+  elseif numList[4] == 1 // four of a kind, a single
+   rankList[2] = List.Sort({ @rankList[2], { MyData.hand, MyData.value } })
+  elseif numList[3] == 1
+   if numList[2] == 1 // full house
+    rankList[3] = List.Sort({ @rankList[3], { MyData.hand, MyData.value } })
+   else // triple
+    rankList[4] = List.Sort({ @rankList[4], { MyData.hand, MyData.value } })
+   end
+  elseif numList[2] ==2 // two pair
+   rankList[5] = List.Sort({ @rankList[5], { MyData.hand, MyData.value } })
+  elseif numList[2] == 1 // one pair
+   rankList[6] = List.Sort({ @rankList[6], { MyData.hand, MyData.value } })
+  else // high card
+   rankList[7] = List.Sort({ @rankList[7], { MyData.hand, MyData.value } })
+  end
+ end
+ // Sorted lists. Iterate and multiply.
+ curVal=0
+ hrank=1
+ for (count=7;count>=1;count-=1)
+  for (scount=1;scount<=Length(rankList[count]);scount+=1)
+   curVal += hrank*Str.StringToInteger(rankList[count][scount][2])
+   hrank += 1
+  end
+ end
+ return Str.String(curVal)
+end
+[LL_WEBREPORT_ENDSCRIPT /]
+
+Input splitting on space. Output:<BR>
+[LL_WEBREPORT_CALL NAME:loadData /]
