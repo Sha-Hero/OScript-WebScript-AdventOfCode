@@ -1,0 +1,70 @@
+[LL_WEBREPORT_STARTSCRIPT NAME:gcd /]
+function Integer loadData(Integer a, Integer b)
+ Integer c
+ if a < b; c=b;b=a;a=c; end;
+ while b != 0
+  c=a%b;a=b;b=c;
+ end
+ return a
+end
+[LL_WEBREPORT_ENDSCRIPT /]
+
+[LL_WEBREPORT_STARTSCRIPT NAME:lcm /]
+function Integer loadData(List incom)
+ Integer curLCM=incom[1]
+ for (count=2;count<=Length(incom);count+=1)
+  curLCM = (curLCM*incom[count]) / .gcd(curLCM, incom[count])
+ end
+ // Help from https://stackoverflow.com/questions/147515/least-common-multiple-for-3-or-more-numbers
+ return curLCM
+end
+[LL_WEBREPORT_ENDSCRIPT /]
+
+[LL_WEBREPORT_STARTSCRIPT NAME:loadData /]
+// The various arrays are used only for debugging and display purposes.
+// The workaround for adding a key/value is create a new assoc, and then Assoc.Merge() the two.
+// The workaround for retrieval is to use a stringified input (the "myAssoc" here): String output = ._subtag(Str.ValueToString(myAssoc),'ASSOC:'+ myKey)
+// Assoc Values need to be stringified too.
+
+function String loadData(Dynamic context)
+ Assoc MyData = Assoc.CreateAssoc()
+ Integer count = 0, neb
+ List inpElem = {}, sLoc = {}, pLength = {}
+ Date sDate = Date.Now()
+ Integer sTick=Date.Tick()
+ String path, entry = '', cur=''
+ // OK, let's load the data and do the work. OScript doesn't like the input format.
+ MyData = Assoc.CreateAssoc()
+ for myItem in context.data
+  if count == 0
+   // First run, it's the path.
+   path = Str.String(myItem.Column1)
+   count += 1
+  else
+   inpElem = Str.Elements(myItem.Column1, ' ')
+   MyData = Assoc.Merge( MyData, Assoc.CreateFromPairs( inpElem[1]+'L', inpElem[3][2:-2], inpElem[1]+'R', inpElem[4][:-2]))
+   if (inpElem[1][3] == 'A')
+    sLoc = { @sLoc, inpElem[1] }
+   end
+  end
+ end
+ for cur in sLoc
+  neb=1
+  while (1==1)
+   for (count=1;count<=Length(path);count+=1)
+    cur = ._subtag(Str.ValueToString(MyData),'ASSOC:'+cur+path[count])
+   end
+   if cur[3] == 'Z'
+    pLength = { @pLength, neb*Length(path) }
+    break
+   end
+   neb += 1
+  end
+ end
+ // We have the cycles and lengths. Now.... find LCM for all of them.
+ return Str.String(.lcm(pLength))+' Timing: Started: '+Str.String(sDate)+ ' : '+Str.String(sTick)+'. Ended: '+Str.String(Date.Now())+' tick: '+Str.String(Date.Tick())
+end
+[LL_WEBREPORT_ENDSCRIPT /]
+
+Input splitting on space. Output:<BR>
+[LL_WEBREPORT_CALL NAME:loadData /]
