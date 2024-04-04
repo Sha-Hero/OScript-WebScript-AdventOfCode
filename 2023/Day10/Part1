@@ -1,1 +1,57 @@
-aba
+[LL_WEBREPORT_STARTSCRIPT NAME:callIt /]
+function String anyName(Dynamic context)
+ List grid = {}
+ Integer count=1, sx, sy, cx, cy // start x,y cur x,y
+ String d, c // direction and character
+ List padre
+ if isDefined (context.data) // check there is a data source
+  // Load the grid
+  for myVal in context.data 
+   grid = { @grid, myVal.Column1 }
+   padre = Pattern.Find( myVal.Column1, 'S')
+   if IsDefined(padre)
+    // Found the start
+    sx=padre[1]; sy=count
+   end
+   count += 1
+  end
+  // Grid is loaded. Traverse.
+  cx = sx+1; cy=sy; count=1; d='e'
+  // | is a vertical pipe connecting north and south.
+  // - is a horizontal pipe connecting east and west.
+  // L is a 90-degree bend connecting north and east.
+  // J is a 90-degree bend connecting north and west.
+  // 7 is a 90-degree bend connecting south and west.
+  // F is a 90-degree bend connecting south and east.
+  padre = {d}
+  while cx != sx || cy != sy
+   c = grid[cy][cx] // Grid is y then x.
+   switch c
+    case '|'
+     if d == 's'; cy += 1; elseif d == 'n'; cy -= 1; end;
+    end
+    case '-'
+     if d == 'e'; cx += 1; elseif d == 'w'; cx -= 1; end;
+    end
+    case 'L'
+     if d == 'w'; cy -= 1; d='n'; elseif d == 's'; cx += 1; d='e'; end;
+    end
+    case 'J'
+     if d == 'e'; cy -= 1; d='n'; elseif d == 's'; cx -= 1; d='w'; end;
+    end
+    case '7'
+     if d == 'e'; cy += 1; d='s'; elseif d == 'n'; cx -= 1; d='w'; end;
+    end
+    case 'F'
+     if d == 'w'; cy += 1; d='s'; elseif d == 'n'; cx += 1; d='e'; end;
+    end
+   end;
+   padre = { @padre, d }
+   count += 1
+  end
+ end
+ return Str.String(count/2) + ' with path: '+Str.ValueToString(padre)
+end
+[LL_WEBREPORT_ENDSCRIPT /]
+
+Output: [LL_WEBREPORT_CALL NAME:callIt /]<BR>
