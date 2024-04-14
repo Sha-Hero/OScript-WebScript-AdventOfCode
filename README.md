@@ -1,5 +1,17 @@
 # OScript-WebScript-AdventOfCode
-My Advent of Code Solutions in OScript/WebScript
+My Advent of Code Solutions in OScript/~~WebScript~~
+
+**Update**: It was *painful*. Webscript has a lot of restrictions for Oscript. Some were reasonably easy to get around. For example the inability to call Assoc keys by variable (eg. myAssoc.(myVar) ) was able to work around with some fancy footwork. Other restrictions were silly: inability to use the word "set", or "long" even in comments.
+The breaking point unfortunately was with lack of Global Variables. Day 12 part 2 in particular I needed a global but because I could not call it, I had to keep passing around an Assoc cache as a variable. This slowed down the code so much as the assoc got many millions of entries. Some timimg:
+* Raw recursion: 48 hours and it only got through 19 of the thousand lines.
+* Recursion with cache passed through: 48 hours and got to line 640 of the thousand lines. Each line started taking 10 minutes, etc.
+* Recursion with cache being RESET(!!!) each line: 25 minutes to complete.
+* In Oclipse, with a Global variable: 49 seconds.
+I expected OScript to be slower - it's from the early 1990's, it's not compiled, it's not meant for this kind of thing. But as of day 12 part 2 I'm going full Oscript. Still am limited with the API, and no multithreading.
+
+Thank you for your understanding. :-)
+
+Some earlier notes below:
 
 Note that these take the following approaches:
 - Each has been implemented as oscript functions in webscript in a WebReport in GCdocs
