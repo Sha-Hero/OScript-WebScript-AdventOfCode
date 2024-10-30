@@ -43,3 +43,4 @@ Input
 My approach is to solve the problems - not necessarily to be elegant or efficient. Just see if I can solve them given the tools available.
 
 One update: Enabled the keyword "Set" to be allowed. This is strictly for Str.Set. Day 10 part 2 was when it was first used.
+There is someone who solved all of them with a Commodore 64, so there is that.... :-)
