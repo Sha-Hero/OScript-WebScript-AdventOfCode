@@ -11,6 +11,11 @@ I expected OScript to be slower - it's from the early 1990's, it's not compiled,
 
 Thank you for your understanding. :-)
 
+Other notes:
+* Ran into numbers that were too large, so I implemented a method that stringifies them and manipulates them that way. Very slow but effective.
+* Regex is pretty austere. Would be nice to be able to choose "greedy" or other options
+* Everything is a list. :-)
+
 Some earlier notes below:
 
 Note that these take the following approaches:
