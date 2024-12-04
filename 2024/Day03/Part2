@@ -6,10 +6,9 @@
 */
 function String runme()
 	String inputF
-	Boolean dos=true
 	integer count=0, count2, Starter=Date.Tick(), sum=0
 	inputF=Loaddata("C:\AdventOfCodeInputs\2024\2024-03-input.txt")
-	String  search = "mul(<[0-9][0-9]*[0-9]*>,<[0-9][0-9]*[0-9]*>)"
+	String  search = "mul(<[0-9]+>,<[0-9]+>)"
 	String  s = inputF, s2=''
 	count = Str.Locate(s, "don't()")
 	while IsDefined(count)
@@ -33,7 +32,7 @@ function String runme()
 	    s = s[ result[ 2 ] : ]
 		result = Pattern.Find( s, search )
 	end
-	echo("Part 1 answer: "+Str.String(sum)+' timing: '+Str.String(Date.Tick()-starter)+' ticks.')
+	echo("Part 2 answer: "+Str.String(sum)+' timing: '+Str.String(Date.Tick()-starter)+' ticks.')
 	return "Done!"
 end
 
