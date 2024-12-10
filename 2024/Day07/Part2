@@ -9,7 +9,7 @@
  * 192: 17 8 14
  * 21037: 9 7 18 13
  * 292: 11 6 16 20
- * 100.6 seconds
+ * 40.1 seconds
 */
 function String runme()
 	List inputF, nums
@@ -30,6 +30,9 @@ function String runme()
 end
 
 function Boolean poss(integer tot, List elms)
+	if elms[1] > tot
+		return false
+	end
 	if(Length(elms)==2)
 		if tot==elms[1]+elms[2] || tot==elms[1]*elms[2] || tot==Str.StringToInteger(Str.Format("%1%2",elms[1],elms[2]))
 			return true
