@@ -15,6 +15,10 @@ Other notes:
 * Ran into numbers that were too large, so I implemented a method that stringifies them and manipulates them that way. Very slow but effective.
 * Regex is pretty austere. Would be nice to be able to choose "greedy" or other options
 * Everything is a list. :-)
+* Not everything is a list. :-) Sometimes it's an Assoc. Very fast. Lists are slow with insertions at the head.
+* Thread globals ($$) rather than system globals ($) are great for debugging.
+* Memoization in OScript runs pretty damn fast.
+* Recursion limit of about 1000 - might be a Java/Eclipse thing.
 
 Some earlier notes below:
 
