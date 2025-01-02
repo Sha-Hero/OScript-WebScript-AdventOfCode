@@ -9,7 +9,7 @@
  * 192: 17 8 14
  * 21037: 9 7 18 13
  * 292: 11 6 16 20
- * 3.97 seconds
+ * 3.97 seconds --> 0.1 seconds - going from back to front.
 */
 function String runme()
 	List inputF, nums
@@ -30,6 +30,7 @@ function String runme()
 end
 
 function Boolean poss(integer tot, List elms)
+//	integer ea = Length(elms)
 	if(Length(elms)==2)
 		if tot==elms[1]+elms[2] || tot==elms[1]*elms[2]
 			return true
@@ -37,10 +38,16 @@ function Boolean poss(integer tot, List elms)
 			return false
 		end
 	end
-	if(poss(tot, {elms[1]+elms[2], @elms[3:]}))
-		return true
+	if(tot%elms[-1]!=0)
+		if(tot<elms[-1])
+			return false
+		else
+			return poss(tot-elms[-1], elms[:-2])
+		end
 	else
-		return (poss(tot, {elms[1]*elms[2], @elms[3:]}))
+		if(poss(tot/elms[-1], elms[:-2]) || poss(tot-elms[-1], elms[:-2]))
+			return true
+		end
 	end
 	return false
 end
