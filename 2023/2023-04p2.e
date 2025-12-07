@@ -1,0 +1,67 @@
+/*
+ * Matching numbers from both sides with increasing "weight"
+ * Number of matches gets later cards.
+ * Start at end and work backwards - see below
+ * Card 1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53
+ * Card 2: 13 32 20 16 61 | 61 30 68 82 17 32 24 19
+ * Card 3:  1 21 53 59 44 | 69 82 63 72 16 21 14  1
+ * Card 4: 41 92 73 84 69 | 59 84 76 51 58  5 54 83
+ * Card 5: 87 83 26 28 32 | 88 30 70 12 93 22 82 36
+ * Card 6: 31 18 13 56 72 | 74 77 10 23 35 67 36 11
+ * c6=1
+ * c5=1
+ * c4=1+1*c5=2
+ * c3=1+1*c4+1*c5=1+2+1=4
+ * c2=1+1*c3+1*c4=1+4+2=7
+ * c1=1+1*c2+1*c3+1*c4+1*c5=1+7+4+2+1=15
+ * Total=1+1+2+4+7+15=30
+ * 0.01 s
+ *
+ */
+function String runme()
+	List inputF, oneline = {}, results = {}, funcRet
+	integer count, sum = 0, points, totalp, Starter=Date.Tick()
+	String retArray
+	inputF=Loaddata("C:\AdventOfCodeInputs\2023\4-input.txt")
+	for (count=1; count<=Length(inputF); count+=1)
+		funcRet[count] = parseInput("Card "+Str.ValueToString(count), inputF[count][Str.Chr(inputF[count], ':')+1:])
+	end
+	List pointval = {}
+	for (count=Length(funcRet); count>0; count-=1)
+		// count is the card number. funcRet[count][3] is the number of later cards.
+		pointval[count]=1 // 
+		points=1
+		while points<=funcRet[count][3]
+			if IsDefined(pointval[count+points])
+				pointval[count] += pointval[count+points]
+			end
+			points+=1
+		end
+		totalp += pointval[count]
+	end
+	echo('Answer: '+Str.String(totalp)+' timing: '+Str.String(Date.Tick()-starter)+' ticks.')
+	return "Done"
+end
+
+function List parseInput(String cardnum, String draws)
+	cardnum = Str.Strip(cardnum, "'") // removing leading/trailing quotes.
+	draws = Str.Strip(draws, "'") // removing leading/trailing quotes.
+	// Just going to union the sides and see how much "shorter" the list is.
+	List winnum = Str.Elements(draws, "|")
+	List eachrow = { List.SetRemove(Str.Elements(winnum[1], ' '), ''), List.SetRemove(Str.Elements(winnum[2], ' '), '') }
+	eachrow = { @eachrow, Length(eachrow[1])+Length(eachrow[2])-Length(List.SetUnion(eachrow[1], eachrow[2])) }
+	return eachrow
+end
+// Load the file.
+function List loadData(String path)
+	List incoming
+	String s
+	File fr = File.open(path, File.ReadMode)
+	if (!IsError(fr))
+		for (s=File.Read(fr); s!=File.E_Eof; s=File.Read(fr))
+			incoming = { @incoming, s}
+		end
+		File.Close(fr)
+	end
+	return incoming
+end
