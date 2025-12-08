@@ -8,7 +8,7 @@ function String runme()
 	List inputF, oneline = {}, results = {}
 	integer count, sum = 0, Starter=Date.Tick()
 	String entry
-	inputF=Loaddata("C:\AdventOfCodeInputs\2023\15-input.txt")
+	inputF=Loaddata("Z:\AdventOfCode\Inputs\2023\15-input.txt")
 	// This one just has one line.
 	oneline = Str.Elements(inputF[1], ',')
 	for entry in oneline

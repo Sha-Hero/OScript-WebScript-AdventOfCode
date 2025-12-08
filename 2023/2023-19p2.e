@@ -31,7 +31,7 @@ function String runme()
 	Boolean kosher = TRUE
 	$workflows = Assoc.CreateAssoc()
 	$acclist = {}
-	inputF=Loaddata("C:\AdventOfCodeInputs\2023\19-input.txt")
+	inputF=Loaddata("Z:\AdventOfCode\Inputs\2023\19-input.txt")
 	for (count=1; count<=Length(inputF); count+=1)
 		if inputF[count]==""
 			break

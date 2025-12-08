@@ -23,7 +23,7 @@ function String runme()
 	List inputF, mapList = {{}}, mapListR = {{}}
 	integer count, count2=1, countr, sc=0, sum = 0, Starter=Date.Tick()
 	List matPot ={}, matPotR={} // match potential...
-	inputF=Loaddata("C:\AdventOfCodeInputs\2023\13-input.txt")
+	inputF=Loaddata("Z:\AdventOfCode\Inputs\2023\13-input.txt")
 	for (count=1; count<=Length(inputF); count+=1)
 		if inputF[count]==''
 			// New map. Reset.

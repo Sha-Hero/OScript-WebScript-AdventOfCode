@@ -8,13 +8,14 @@
  * 12, 31, 28 @ -1, -2, -1
  * 20, 19, 15 @  1, -5, -3
  * between 7 and 27
+ * 5.7 seconds
  */
 function String runme()
 	// Load in the data and see where intersections occur (if any)
 	getMath()
 	List inputF
 	integer Starter=Date.Tick()
-	inputF=Loaddata("C:\AdventOfCodeInputs\2023\24-input.txt")
+	inputF=Loaddata("Z:\AdventOfCode\Inputs\2023\24-input.txt")
 	// Turns out only need the first three hailstones to find the line!
 	// NUMBERS ARE TOO BIG FOR OSCRIPT. Take different approach... Convert to strings?
 	List a, b, c, va, vb, vc, x
@@ -188,7 +189,7 @@ function List loadData(String path)
 	return incoming
 end
 function void getMath()
-	file fr=File.Open( "C:\AdventOfCodeSupport\BigMath.e", File.ReadMode )
+	file fr=File.Open( "Z:\AdventOfCode\BigMath.e", File.ReadMode )
 	string hellooo = "", s
 	if (!IsError(fr))
 		for (s=File.Read(fr, 65535); s!=File.E_Eof; s=File.Read(fr, 65535))

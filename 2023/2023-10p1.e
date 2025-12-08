@@ -15,7 +15,7 @@ function String runme()
 	List padre
 	Integer Starter = Date.Tick()
 	PatFind myStr = Pattern.CompileFind( 'S')
-	inputF=Loaddata("C:\AdventOfCodeInputs\2023\10-input.txt")
+	inputF=Loaddata("Z:\AdventOfCode\Inputs\2023\10-input.txt")
 	for (count=1; count<=Length(inputF); count+=1)
 		grid = { @grid, inputF[count] }
 		padre = Pattern.Find( inputF[count], myStr)

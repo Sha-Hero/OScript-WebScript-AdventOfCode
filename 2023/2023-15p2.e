@@ -9,7 +9,7 @@ function String runme()
 	integer count, sum = 0, Starter=Date.Tick(), boxnum, c2
 	String entry
 	Assoc tracker = Assoc.CreateAssoc()
-	inputF=Loaddata("C:\AdventOfCodeInputs\2023\15-input.txt")
+	inputF=Loaddata("Z:\AdventOfCode\Inputs\2023\15-input.txt")
 	// This one just has one line.
 	for (count=1; count<=Length(boxes); count+=1)
 		boxes[count] = {}

@@ -15,7 +15,7 @@ function String runme()
 	String d, c // direction and character
 	String out // where is 'outside' (u,d,l,r)
 	List padre
-	inputF=Loaddata("C:\AdventOfCodeInputs\2023\10-input.txt")
+	inputF=Loaddata("Z:\AdventOfCode\Inputs\2023\10-input.txt")
 	for (count=1; count<=Length(inputF); count+=1)
 		grid = { @grid, inputF[count] }
 		// Building an empty grid that we will populate with just the 

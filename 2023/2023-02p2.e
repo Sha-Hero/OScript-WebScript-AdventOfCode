@@ -4,6 +4,7 @@
  * Game 1: 4 blue, 16 green, 2 red; 5 red, 11 blue, 16 green; 9 green, 11 blue; 10 blue, 6 green, 4 red
  * Game 2: 15 green, 20 red, 8 blue; 12 green, 7 red; 10 green, 2 blue, 15 red; 13 blue, 15 red
  * Game 3: 8 red, 2 blue; 3 green, 10 blue, 10 red; 7 green, 4 blue, 7 red; 8 red, 6 green, 13 blue; 4 green, 3 blue, 10 red; 7 blue, 7 green, 5 red
+ * 0.012 sec
  */
 function String runme()
 	integer count = 0, sum = 0, Starter=Date.Tick()
@@ -52,7 +53,7 @@ end
 function List loadData()
 	List incoming
 	String s
-	File fr = File.open("C:\AdventOfCodeInputs\2023\2-input.txt", File.ReadMode)
+	File fr = File.open("Z:\AdventOfCode\Inputs\2023\2-input.txt", File.ReadMode)
 	if (!IsError(fr))
 		for (s=File.Read(fr); s!=File.E_Eof; s=File.Read(fr))
 			incoming = { @incoming, s}

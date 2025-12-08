@@ -23,7 +23,7 @@ function String runme()
 	integer Rs, Cs // number of rows and columns
 	Integer dist, r, c, dir, indir, rr, cc, cost, new_dir, new_indir, ans //
 	Boolean isvalid=FALSE, isnt_reverse=FALSE
-	G=Loaddata("C:\AdventOfCodeInputs\2023\17-input.txt")
+	G=Loaddata("Z:\AdventOfCode\Inputs\2023\17-input.txt")
 	Rs = Length(G)
 	Cs = Length(G[1])
 	dist = 0

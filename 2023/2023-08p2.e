@@ -18,7 +18,7 @@ function String runme()
 	String path, entry = '', cur=''
 	List inputF
 	Integer Starter=Date.Tick()
-	inputF=Loaddata("C:\AdventOfCodeInputs\2023\8-input.txt")
+	inputF=Loaddata("Z:\AdventOfCode\Inputs\2023\8-input.txt")
 	// OK, let's load the data and do the work. OScript doesn't like the input format.
 	MyData = Assoc.CreateAssoc()
 	for (count=1; count<=Length(inputF); count+=1)

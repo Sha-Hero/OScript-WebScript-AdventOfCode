@@ -15,6 +15,7 @@
  * 2546548887735
  * 4322674655533
  * 1458 seconds
+ * Should look into efficiencies....
  */
 function String runme()
 	// MinRun (mnr) and MaxRun (mxr)
@@ -26,7 +27,7 @@ function String runme()
 	Integer mnr, mxr
 	Boolean isvalid=FALSE, isnt_reverse=FALSE
 	mnr = 4; mxr =10
-	G=Loaddata("C:\AdventOfCodeInputs\2023\17-input.txt")
+	G=Loaddata("Z:\AdventOfCode\Inputs\2023\17-input.txt")
 	Rs = Length(G)
 	Cs = Length(G[1])
 	dist = 0

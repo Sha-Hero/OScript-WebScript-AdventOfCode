@@ -17,7 +17,7 @@ function String runme()
 	List inputF, octos, mapListR={}, mapListR2={}
 	integer count, countr, sum = 0, Starter=Date.Tick(), cft
 	String oneLine, spo, oval, fullst
-	inputF=Loaddata("C:\AdventOfCodeInputs\2023\14-input.txt")
+	inputF=Loaddata("Z:\AdventOfCode\Inputs\2023\14-input.txt")
 	for (count=1; count<=Length(inputF); count+=1)
 		// Let's rotate the map to make it easier.
 		for (countr=1; countr<=Length(inputF[count]); countr+=1)

@@ -27,7 +27,7 @@ function String runme()
 	List inputF, coords = {{0,0}}, coord = {}
 	Integer count, cx=0, cy=0, cnt2, perim=0
 	String d // direction
-	inputF=Loaddata("C:\AdventOfCodeInputs\2023\18-input.txt")
+	inputF=Loaddata("Z:\AdventOfCode\Inputs\2023\18-input.txt")
 	for (count=1; count<=Length(inputF); count+=1)
 		d = inputF[count][-2:-2]
 		cnt2 = HexToDec(inputF[count][-7:-3])

@@ -27,7 +27,7 @@ function String runme()
 	integer count, count2=1, countr, sc=0, sum = 0, Starter=Date.Tick()
 	List matPot ={}, matPotR={} // match potential...
 	$mapNums = {1}
-	inputF=Loaddata("C:\AdventOfCodeInputs\2023\13-input.txt")
+	inputF=Loaddata("Z:\AdventOfCode\Inputs\2023\13-input.txt")
 	for (count=0; count<=20; count+=1)
 		$powTwo = { @$powTwo, Math.RoundSignificant(Math.Power(2, count),10)}
 	end

@@ -15,7 +15,7 @@ function String runme()
 	Integer count=1, curSum=0, tempSum = 0, icount
 	List partLine, inpElem, levtwo, mytest
 	List outer = {}
-	inputF=Loaddata("C:\AdventOfCodeInputs\2023\12-input.txt")
+	inputF=Loaddata("Z:\AdventOfCode\Inputs\2023\12-input.txt")
 	for (count=1; count<=Length(inputF); count+=1)
 		tempSum = 0
 		partLine[count] = Str.Elements(inputF[count], ' ')[1] // Wish we could map two variables at once.

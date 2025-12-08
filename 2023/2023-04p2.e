@@ -22,7 +22,7 @@ function String runme()
 	List inputF, oneline = {}, results = {}, funcRet
 	integer count, sum = 0, points, totalp, Starter=Date.Tick()
 	String retArray
-	inputF=Loaddata("C:\AdventOfCodeInputs\2023\4-input.txt")
+	inputF=Loaddata("Z:\AdventOfCode\Inputs\2023\4-input.txt")
 	for (count=1; count<=Length(inputF); count+=1)
 		funcRet[count] = parseInput("Card "+Str.ValueToString(count), inputF[count][Str.Chr(inputF[count], ':')+1:])
 	end

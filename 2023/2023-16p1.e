@@ -17,7 +17,7 @@ function String runme()
 	$$LD = Assoc.CreateAssoc()
 	$$inputF = {}
 	Integer Starter = Date.Tick()
-	$$inputF=Loaddata("C:\AdventOfCodeInputs\2023\16-input.txt")
+	$$inputF=Loaddata("Z:\AdventOfCode\Inputs\2023\16-input.txt")
 	//echo (Str.String($$inputF))
 	// Grid is loaded. Traverse.
 	Traverse(1,1, 'E') // Git 'er going.

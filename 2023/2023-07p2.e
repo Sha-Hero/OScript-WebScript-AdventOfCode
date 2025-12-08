@@ -7,6 +7,7 @@
  * KK677 28
  * KTJJT 220
  * QQQJA 483
+ * 0.085 sec
  */
 function String runme()
 	Assoc MyData = Assoc.CreateAssoc()
@@ -18,7 +19,7 @@ function String runme()
 	// OK, let's load the data and do the work.
 	List inputF
 	integer count, curVal, jokers
-	inputF=Loaddata("C:\AdventOfCodeInputs\2023\7-input.txt")
+	inputF=Loaddata("Z:\AdventOfCode\Inputs\2023\7-input.txt")
 	for (count=1; count<=Length(inputF); count+=1)
 		tempSplit = Str.Elements(inputF[count], ' ')
 		numList = {0, 0, 0, 0, 0}

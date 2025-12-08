@@ -24,7 +24,7 @@ function String runme()
 	Assoc hitspaces = Assoc.CreateAssoc()
 	List newSpaces={}, newSpacesTemp={}
 	String curSpot, curDef
-	inputF=Loaddata("C:\AdventOfCodeInputs\2023\21-input.txt")
+	inputF=Loaddata("Z:\AdventOfCode\Inputs\2023\21-input.txt")
 	for (count=1; count<=Length(inputF); count+=1)
 		for (count2=1; count2<=Length(inputF[1]); count2+=1)
 			if (inputF[count][count2]=='#')

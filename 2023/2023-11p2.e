@@ -14,12 +14,13 @@
  * .......#..
  * #...#.....
  * 1.6 s
+ * Use assocs to make faster.
  */
 function String runme()
 	List grid = {}, cx = {}, cy = {}, glxs = {}, inputF
 	Integer count = 0, cnum, cnum2, cnum3
 	integer Starter=Date.Tick()
-	inputF=Loaddata("C:\AdventOfCodeInputs\2023\11-input.txt")
+	inputF=Loaddata("Z:\AdventOfCode\Inputs\2023\11-input.txt")
 	for (count=1; count<=Length(inputF); count+=1)
 		cx = { @cx, count }
 	end

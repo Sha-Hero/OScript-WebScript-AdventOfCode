@@ -15,7 +15,7 @@ function String runme()
 	Integer Starter = Date.Tick()
 	Integer count=1, curSum=0, tempSum, icount
 	List inpElem, levtwo, inputF
-	inputF=Loaddata("C:\AdventOfCodeInputs\2023\9-input.txt")
+	inputF=Loaddata("Z:\AdventOfCode\Inputs\2023\9-input.txt")
 	for (count=1; count<=Length(inputF); count+=1)
 		inpElem[count] = Str.Elements(inputF[count], ' ')
 		// Wish I could force the elements as integers at first.

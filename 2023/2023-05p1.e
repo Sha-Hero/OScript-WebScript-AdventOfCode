@@ -44,7 +44,7 @@ function String runme()
 	List Mapper = {}
 	List seedPath = {}
 	integer dest, source, range, tgt, seednum
-	inputF=Loaddata("C:\AdventOfCodeInputs\2023\5-input.txt")
+	inputF=Loaddata("Z:\AdventOfCode\Inputs\2023\5-input.txt")
 	for (count=1; count<=Length(inputF); count+=1)
 		if inputF[count]==''
 			//doing nothing.

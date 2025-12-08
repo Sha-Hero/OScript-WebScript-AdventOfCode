@@ -15,12 +15,13 @@
  * .|....-|.\
  * ..//.|....
  * 33.8 s
+ * Got to 30 seconds. Further opt could be to use assoc....
  */
 function String runme()
 	$$LD = Assoc.CreateAssoc()
 	$$inputF = {}
 	Integer Starter = Date.Tick(), curmax = 0, res=0, start
-	$$inputF=Loaddata("C:\AdventOfCodeInputs\2023\16-input.txt")
+	$$inputF=Loaddata("Z:\AdventOfCode\Inputs\2023\16-input.txt")
 	//echo (Str.String($$inputF))
 	// Grid is loaded. Traverse.
 	for (start=1; start<=Length($$inputF); start+=1)

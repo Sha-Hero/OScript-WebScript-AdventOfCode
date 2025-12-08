@@ -26,7 +26,7 @@ function String runme()
 	Integer count, c2=1, c3, tcount=0
 	Assoc workflows, pv
 	String key, res, let
-	inputF=Loaddata("C:\AdventOfCodeInputs\2023\19-input.txt")
+	inputF=Loaddata("Z:\AdventOfCode\Inputs\2023\19-input.txt")
 	for (count=1; count<=Length(inputF); count+=1)
 		if inputF[count]==""
 			break

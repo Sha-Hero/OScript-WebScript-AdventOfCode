@@ -25,7 +25,7 @@ function String runme()
 	String dir
 	Boolean OK=FALSE
 	// Load and prep data.
-	inputF=Loaddata("C:\AdventOfCodeInputs\2023\22-input.txt")
+	inputF=Loaddata("Z:\AdventOfCode\Inputs\2023\22-input.txt")
 	for (count=1; count<=Length(inputF); count+=1)
 		oneline = Str.Elements(inputF[count], '~')
 		fl = Str.Elements(oneline[1], ',')

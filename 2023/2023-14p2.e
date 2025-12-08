@@ -15,12 +15,13 @@
  * #....###..
  * #OO..#....
  * 39 seconds
+ * Assocs to make faster, but this solved it. :-)
  */
 function String runme()
 	List inputF, octos, input2
 	integer count, countr=0, sum = 0, Starter=Date.Tick(), cft=0, foundit=0
 	String oneLine, spo, oval, fullst, fcache
-	inputF=Loaddata("C:\AdventOfCodeInputs\2023\14-input.txt")
+	inputF=Loaddata("Z:\AdventOfCode\Inputs\2023\14-input.txt")
 	Assoc globCache = Assoc.CreateAssoc()
 	for (count=1; count<=1000000000; count+=1)
 		if IsDefined(globCache.(Str.String(inputF)))

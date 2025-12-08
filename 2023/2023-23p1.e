@@ -37,7 +37,7 @@ function String runme()
 	integer count, sum = 0, Starter=Date.Tick()
 	List curpaths = {} // Growing list of paths to take.
 	Integer pathChoice = 0
-	inputF=Loaddata("C:\AdventOfCodeInputs\2023\23-input.txt")
+	inputF=Loaddata("Z:\AdventOfCode\Inputs\2023\23-input.txt")
 	// All lists are x, y
 	$$endPoint = { Length(inputF[Length(inputF)])-1, Length(inputF) }
 	inputF[1][2] = 'v'

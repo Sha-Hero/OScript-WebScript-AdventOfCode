@@ -17,7 +17,7 @@ function String runme()
 	Boolean allHigh = FALSE, foundit=FALSE
 	integer x=0, st=0, hh=0, tn=0, dt=0
 	//	integer scount = 1, lcount = 0, hcount = 0 // scount is button+broadcast
-	inputF=Loaddata("C:\AdventOfCodeInputs\2023\20-input.txt")
+	inputF=Loaddata("Z:\AdventOfCode\Inputs\2023\20-input.txt")
 	for (count=1; count<=Length(inputF); count+=1)
 		if inputF[count][:11] == 'broadcaster'
 			bcast = Str.Elements(Str.Collapse(inputF[count][16:]), ",")

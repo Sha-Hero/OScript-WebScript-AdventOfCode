@@ -51,7 +51,7 @@ end
 function List loadData()
 	List incoming
 	String s
-	File fr = File.open("C:\AdventOfCodeInputs\2023\2-input.txt", File.ReadMode)
+	File fr = File.open("Z:\AdventOfCode\Inputs\2023\2-input.txt", File.ReadMode)
 	if (!IsError(fr))
 		for (s=File.Read(fr); s!=File.E_Eof; s=File.Read(fr))
 			incoming = { @incoming, s}
